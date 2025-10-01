@@ -1,0 +1,78 @@
+# Spring Boot 애플리케이션 기본 설정
+spring:
+  # 정적 리소스 설정 (기본적으로 static 디렉토리 사용)
+  web:
+    resources:
+      static-locations: classpath:/static/
+
+  # 애플리케이션 이름
+  application:
+    name: springboot-sample
+
+  # 서버 포트 설정 (기본 포트: 8080)
+  server:
+    port: 8080
+
+
+  # 데이터베이스 설정 (H2 인메모리 DB 예시)
+#   datasource:
+#     url: jdbc:h2:mem:testdb
+#     driver-class-name: org.h2.Driver
+#     username: sa
+#     password:
+#   jpa:
+#     hibernate:
+#       ddl-auto: update # 테이블 자동 생성/업데이트
+#     show-sql: true # SQL 쿼리 로깅
+#     properties:
+#       hibernate:
+#         format_sql: true # SQL 포맷팅
+
+#   # Actuator 설정 (관리 엔드포인트 활성화)
+#   management:
+#     endpoints:
+#       web:
+#         exposure:
+#           include: health,info,metrics # 활성화할 Actuator 엔드포인트
+
+# # 로깅 설정
+# logging:
+#   level:
+#     root: INFO # 기본 로깅 레벨
+#     org.springframework: DEBUG # Spring 프레임워크 로그 디버그 모드
+#     com.example.myapp: TRACE # 특정 패키지 로그 레벨
+
+# # 프로파일별 설정
+# ---
+# spring:
+#   config:
+#     activate:
+#       on-profile: dev # 개발 환경 프로파일
+#   datasource:
+#     url: jdbc:h2:mem:devdb
+#     driver-class-name: org.h2.Driver
+#     username: sa
+#     password:
+#   server:
+#     port: 8081 # 개발 환경에서는 다른 포트 사용
+
+# logging:
+#   level:
+#     root: DEBUG # 개발 환경에서 더 자세한 로그
+
+# ---
+# spring:
+#   config:
+#     activate:
+#       on-profile: prod # 프로덕션 환경 프로파일
+#   datasource:
+#     url: jdbc:mysql://localhost:3306/proddb
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#     username: prod_user
+#     password: prod_password
+#   server:
+#     port: 80 # 프로덕션 환경 포트
+
+# logging:
+#   level:
+#     root: WARN # 프로덕션 환경에서는 경고 이상만 로깅
