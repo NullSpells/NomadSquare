@@ -1,0 +1,50 @@
+SET search_path TO nsq, public;
+
+CREATE TABLE IF NOT EXISTS nav_menu (
+  id BIGSERIAL PRIMARY KEY,
+  slug VARCHAR(64) UNIQUE NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS nav_menu_item (
+  id BIGSERIAL PRIMARY KEY,
+  menu_id BIGINT NOT NULL REFERENCES nav_menu(id) ON DELETE CASCADE,
+  label VARCHAR(100) NOT NULL,
+  href TEXT,
+  board_id BIGINT REFERENCES board(id) ON DELETE SET NULL,
+  visible_roles TEXT[],
+  display_order INT NOT NULL DEFAULT 100,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS banner_slot (
+  id BIGSERIAL PRIMARY KEY,
+  slug VARCHAR(64) UNIQUE NOT NULL,
+  name VARCHAR(100) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS banner (
+  id BIGSERIAL PRIMARY KEY,
+  slot_id BIGINT NOT NULL REFERENCES banner_slot(id) ON DELETE CASCADE,
+  title VARCHAR(200), image_key TEXT, link_url TEXT,
+  starts_at TIMESTAMPTZ, ends_at TIMESTAMPTZ,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS banner_metric (
+  banner_id BIGINT NOT NULL REFERENCES banner(id) ON DELETE CASCADE,
+  kind VARCHAR(16) NOT NULL,
+  occurred_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  user_id BIGINT REFERENCES users(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS site_notice (
+  id BIGSERIAL PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  body_md TEXT NOT NULL,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  starts_at TIMESTAMPTZ, ends_at TIMESTAMPTZ,
+  created_by BIGINT REFERENCES users(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now()
+);
