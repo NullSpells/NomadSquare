@@ -1,6 +1,6 @@
   # 서버 포트 설정 (기본 포트: 8080)
 server:
-  port: 8081
+  port: 8080
 
 # Spring Boot 애플리케이션 기본 설정
 spring:

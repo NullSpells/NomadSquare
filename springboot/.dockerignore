@@ -1,0 +1,11 @@
+# 스프링부트
+sp.gradle
+build
+out
+**/.idea
+**/.vscode
+**/*.iml
+.git
+.gitignore
+Dockerfile*
+docker-compose*.yml
